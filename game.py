@@ -16,6 +16,8 @@ pygame.display.set_caption("Hello world!")
 
 # uninitializes pygame
 pygame.quit()
+# Must have -> exits out of python
+quit()
 
 
 
