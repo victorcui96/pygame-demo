@@ -7,9 +7,16 @@ pygame.init()
 
 # set up the window
 
+# tuple = (x, y) where x = width of surface in pixels, y = height of surface in pixels 
+windowSurface = pygame.display.set_mode((500, 400))
+# Updates entire surface
+pygame.display.update()
 
-windowSurface = pygame.display.set_mode((500, 400), 0, 32)
 pygame.display.set_caption("Hello world!")
+
+# uninitializes pygame
+pygame.quit()
+
 
 
 
