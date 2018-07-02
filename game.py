@@ -15,8 +15,13 @@ pygame.display.update()
 
 gameExit = False
 while not gameExit:
+	# Pygame knows the events to watch out for (not on onus of programmer). It's up to you to do the event handling
 	for event in pygame.event.get():
-		print(event)
+		# print(event)
+		if event.type == pygame.QUIT:
+			gameExit = True
+		
+
 
 # uninitializes pygame
 pygame.quit()
