@@ -9,10 +9,14 @@ pygame.init()
 
 # tuple = (x, y) where x = width of surface in pixels, y = height of surface in pixels 
 windowSurface = pygame.display.set_mode((500, 400))
+pygame.display.set_caption("Slither")
 # Updates entire surface
 pygame.display.update()
 
-pygame.display.set_caption("Hello world!")
+gameExit = False
+while not gameExit:
+	for event in pygame.event.get():
+		print(event)
 
 # uninitializes pygame
 pygame.quit()
