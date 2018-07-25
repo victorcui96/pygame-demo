@@ -10,17 +10,19 @@ red = [255, 0, 0]
 
 gameExit = False
 # set up the window, tuple = (x, y) where x = width of surface in pixels, y = height of surface in pixels 
-gameWidth = 500
-gameHeight = 400
-windowSurface = pygame.display.set_mode((gameWidth, gameHeight)) # returns a pygame surface object
+displayWidth = 500
+displayHeight = 400
+windowSurface = pygame.display.set_mode((displayWidth, displayHeight)) # returns a pygame surface object
 pygame.display.set_caption("Slither")
 # Updates entire surface
-leadX = 200 # Changing this is better than changing FPS -> explain why
-leadY = 200
+leadX = displayWidth / 2 # Changing this is better than changing FPS -> explain why
+leadY = displayHeight / 2
 # allows user to hold down arrow key and see directionality change
 leadXChange = 0
 leadYChange = 0
 clock = pygame.time.Clock()
+blockSize = 10
+FPS = 20
 # this while loop runs every frame
 while not gameExit:
 	# Pygame knows the events to watch out for (not on onus of programmer). It's up to you to do the event handling
@@ -30,27 +32,27 @@ while not gameExit:
 			gameExit = True
 		elif event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_LEFT:
-				leadXChange -= 10
+				leadXChange -= blockSize
 			elif event.key == pygame.K_RIGHT:
-				leadXChange += 10
+				leadXChange += blockSize
 			elif event.key == pygame.K_UP:
-				leadYChange -= 10
+				leadYChange -= blockSize
 			elif event.key == pygame.K_DOWN:
-				leadYChange += 10
+				leadYChange += blockSize
 		elif event.type == pygame.KEYUP:
 			if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
 				leadXChange = 0
 			elif event.key == pygame.K_UP or event.key == pygame.K_DOWN:
 				leadYChange = 0
-	if leadX >= gameWidth or leadX < 0 or leadY < 0 or leadY > gameHeight:
+	if leadX >= displayWidth or leadX < 0 or leadY < 0 or leadY >= displayHeight:
 		gameExit = True
 	leadX += leadXChange
 	leadY += leadYChange
 	windowSurface.fill(white) #cleans the slate
-	pygame.draw.rect(windowSurface, black, [leadX, leadY, 10, 10]) # parameters = where we want to draw it, the color, and the coordinates
+	pygame.draw.rect(windowSurface, black, [leadX, leadY, blockSize, blockSize]) # parameters = where we want to draw it, the color, and the coordinates
 	pygame.display.update() # rendering the graphic is the most CPU intensive 
 	# specify FPS
-	clock.tick(20)
+	clock.tick(FPS)
 
 # TODO: Add another condition for where user loses the game, don't want to exit game entirely. 
 		
