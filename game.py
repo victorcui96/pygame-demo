@@ -17,6 +17,7 @@ leadY = 200
 # allows user to hold down arrow key and see directionality change
 leadXChange = 0
 gameExit = False
+clock = pygame.time.Clock()
 # this while loop runs every frame
 while not gameExit:
 	# Pygame knows the events to watch out for (not on onus of programmer). It's up to you to do the event handling
@@ -37,7 +38,8 @@ while not gameExit:
 	windowSurface.fill(white) #cleans the slate
 	pygame.draw.rect(windowSurface, black, [leadX, leadY, 10, 10]) # parameters = where we want to draw it, the color, and the coordinates
 	pygame.display.update() # rendering the graphic is the most CPU intensive 
-
+	# specify FPS
+	clock.tick(10)
 
 # TODO: Add another condition for where user loses the game, don't want to exit game entirely. 
 		
