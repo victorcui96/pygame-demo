@@ -1,4 +1,5 @@
 import pygame, sys
+import time
 from pygame.locals import *
 
 # set up pygame
@@ -23,7 +24,13 @@ leadYChange = 0
 clock = pygame.time.Clock()
 blockSize = 10
 FPS = 20
+# font object, 2nd parameter = font size
+font = pygame.font.SysFont(None, 25)
 # this while loop runs every frame
+def msgToScreen(msg, color):
+	screenText = font.render(msg, True, color)
+	# put font on display
+	windowSurface.blit(screenText, [displayWidth / 2, displayHeight / 2])
 while not gameExit:
 	# Pygame knows the events to watch out for (not on onus of programmer). It's up to you to do the event handling
 	for event in pygame.event.get():
@@ -55,9 +62,9 @@ while not gameExit:
 	clock.tick(FPS)
 
 # TODO: Add another condition for where user loses the game, don't want to exit game entirely. 
-		
-
-
+msgToScreen("You Lose", red)
+pygame.display.update()
+time.sleep(2)
 # uninitializes pygame
 pygame.quit()
 # Must have -> exits out of python
