@@ -1,5 +1,6 @@
 import pygame, sys
 import time
+import random
 from pygame.locals import *
 
 # set up pygame
@@ -31,6 +32,8 @@ def gameLoop():
 	# allows user to hold down arrow key and see directionality change
 	leadXChange = 0
 	leadYChange = 0
+	appleX = random.randrange(0, displayWidth - blockSize)
+	appleY = random.randrange(0, displayHeight - blockSize)
 	while not gameExit:
 		# Pygame knows the events to watch out for (not on onus of programmer). It's up to you to do the event handling
 		while gameOver:
@@ -67,6 +70,7 @@ def gameLoop():
 		leadX += leadXChange
 		leadY += leadYChange
 		windowSurface.fill(white) #cleans the slate
+		pygame.draw.rect(windowSurface, red, [appleX, appleY, blockSize, blockSize])
 		pygame.draw.rect(windowSurface, black, [leadX, leadY, blockSize, blockSize]) # parameters = where we want to draw it, the color, and the coordinates
 		pygame.display.update() # rendering the graphic is the most CPU intensive 
 		# specify FPS
