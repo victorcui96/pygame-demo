@@ -17,7 +17,7 @@ windowSurface = pygame.display.set_mode((displayWidth, displayHeight)) # returns
 pygame.display.set_caption("Slither")
 clock = pygame.time.Clock()
 blockSize = 10
-appleThickness = 10
+appleThickness = 30
 FPS = 20
 # font object, 2nd parameter = font size
 font = pygame.font.SysFont(None, 25)
@@ -39,8 +39,8 @@ def gameLoop():
 	# allows user to hold down arrow key and see directionality change
 	leadXChange = 0
 	leadYChange = 0
-	appleX = random.randrange(0, displayWidth - blockSize, blockSize)
-	appleY = random.randrange(0, displayHeight - blockSize, blockSize)
+	appleX = round(random.randrange(0, displayWidth - appleThickness))
+	appleY = round(random.randrange(0, displayHeight - appleThickness))
 	snakeList = []
 	snakeLen = 1
 	while not gameExit:
@@ -50,7 +50,10 @@ def gameLoop():
 			msgToScreen("Game Over, press C to play again or Q to quit", red)
 			pygame.display.update()
 			for event in pygame.event.get():
-				if event.type == pygame.KEYDOWN:
+				if event.type == pygame.QUIT:
+					gameOver = False
+					gameExit = True
+				elif event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_q:
 						gameExit = True
 						gameOver = False
@@ -95,8 +98,8 @@ def gameLoop():
 		pygame.display.update() # rendering the graphic is the most CPU intensive 
 		# Detect apple collision
 		if leadX >= appleX and leadX <= appleX + appleThickness - blockSize and leadY >= appleY and leadY <= appleY + appleThickness - blockSize:
-			appleX = random.randrange(0, displayWidth - blockSize, blockSize)
-			appleY = random.randrange(0, displayHeight - blockSize, blockSize)
+			appleX = round(random.randrange(0, displayWidth - blockSize, blockSize))
+			appleY = round(random.randrange(0, displayHeight - blockSize, blockSize))
 			snakeLen += 1
 		# specify FPS
 		clock.tick(FPS)
