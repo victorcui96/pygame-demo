@@ -9,6 +9,7 @@ pygame.init()
 white = [255, 255, 255] #RGB -> Use RGB because computers have a backlight 
 black = [0, 0, 0]
 red = [255, 0, 0]
+green = [0, 200, 0]
 # set up the window, tuple = (x, y) where x = width of surface in pixels, y = height of surface in pixels 
 displayWidth = 500
 displayHeight = 400
@@ -24,6 +25,8 @@ def msgToScreen(msg, color):
 	screenText = font.render(msg, True, color)
 	# put font on display
 	windowSurface.blit(screenText, [displayWidth / 2, displayHeight / 2])
+def snake(leadX, leadY, blockSize):
+	pygame.draw.rect(windowSurface, green, [leadX, leadY, blockSize, blockSize]) # parameters = where we want to draw it, the color, and the coordinates
 def gameLoop():
 	gameExit = False
 	gameOver = False
@@ -71,11 +74,12 @@ def gameLoop():
 		leadY += leadYChange
 		windowSurface.fill(white) #cleans the slate
 		pygame.draw.rect(windowSurface, red, [appleX, appleY, blockSize, blockSize])
-		pygame.draw.rect(windowSurface, black, [leadX, leadY, blockSize, blockSize]) # parameters = where we want to draw it, the color, and the coordinates
+		snake(leadX, leadY, blockSize)
 		pygame.display.update() # rendering the graphic is the most CPU intensive 
 		# Detect apple collision
 		if leadX == appleX and leadY == appleY:
-			print("Chomp chomp")
+			appleX = random.randrange(0, displayWidth - blockSize, blockSize)
+			appleY = random.randrange(0, displayHeight - blockSize, blockSize)
 		# specify FPS
 		clock.tick(FPS)
 
