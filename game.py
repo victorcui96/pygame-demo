@@ -32,8 +32,8 @@ def gameLoop():
 	# allows user to hold down arrow key and see directionality change
 	leadXChange = 0
 	leadYChange = 0
-	appleX = random.randrange(0, displayWidth - blockSize)
-	appleY = random.randrange(0, displayHeight - blockSize)
+	appleX = random.randrange(0, displayWidth - blockSize, blockSize)
+	appleY = random.randrange(0, displayHeight - blockSize, blockSize)
 	while not gameExit:
 		# Pygame knows the events to watch out for (not on onus of programmer). It's up to you to do the event handling
 		while gameOver:
@@ -73,6 +73,9 @@ def gameLoop():
 		pygame.draw.rect(windowSurface, red, [appleX, appleY, blockSize, blockSize])
 		pygame.draw.rect(windowSurface, black, [leadX, leadY, blockSize, blockSize]) # parameters = where we want to draw it, the color, and the coordinates
 		pygame.display.update() # rendering the graphic is the most CPU intensive 
+		# Detect apple collision
+		if leadX == appleX and leadY == appleY:
+			print("Chomp chomp")
 		# specify FPS
 		clock.tick(FPS)
 
@@ -83,7 +86,7 @@ def gameLoop():
 	quit()
 gameLoop()
 
-
+ 
 
 
 
