@@ -38,6 +38,8 @@ def gameLoop():
 	leadYChange = 0
 	appleX = random.randrange(0, displayWidth - blockSize, blockSize)
 	appleY = random.randrange(0, displayHeight - blockSize, blockSize)
+	snakeList = []
+	snakeLen = 1
 	while not gameExit:
 		# Pygame knows the events to watch out for (not on onus of programmer). It's up to you to do the event handling
 		while gameOver:
@@ -76,17 +78,23 @@ def gameLoop():
 		windowSurface.fill(white) #cleans the slate
 		pygame.draw.rect(windowSurface, red, [appleX, appleY, blockSize, blockSize])
 
-		snakeList = []
 		snakeHead = []
 		snakeHead.append(leadX)
 		snakeHead.append(leadY)
 		snakeList.append(snakeHead)
+		if len(snakeList) > snakeLen:
+			del snakeList[0]
+		# detect if snake hit itself
+		for segment in snakeList[:-1]:
+			if segment == snakeHead:
+				gameOver = True
 		snake(snakeList, blockSize)
 		pygame.display.update() # rendering the graphic is the most CPU intensive 
 		# Detect apple collision
 		if leadX == appleX and leadY == appleY:
 			appleX = random.randrange(0, displayWidth - blockSize, blockSize)
 			appleY = random.randrange(0, displayHeight - blockSize, blockSize)
+			snakeLen += 1
 		# specify FPS
 		clock.tick(FPS)
 
