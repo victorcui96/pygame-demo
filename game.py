@@ -25,8 +25,9 @@ def msgToScreen(msg, color):
 	screenText = font.render(msg, True, color)
 	# put font on display
 	windowSurface.blit(screenText, [displayWidth / 2, displayHeight / 2])
-def snake(leadX, leadY, blockSize):
-	pygame.draw.rect(windowSurface, green, [leadX, leadY, blockSize, blockSize]) # parameters = where we want to draw it, the color, and the coordinates
+def snake(snakeList, blockSize):
+	for xAndYLoc in snakeList:
+		pygame.draw.rect(windowSurface, green, [xAndYLoc[0], xAndYLoc[1], blockSize, blockSize])
 def gameLoop():
 	gameExit = False
 	gameOver = False
@@ -74,7 +75,13 @@ def gameLoop():
 		leadY += leadYChange
 		windowSurface.fill(white) #cleans the slate
 		pygame.draw.rect(windowSurface, red, [appleX, appleY, blockSize, blockSize])
-		snake(leadX, leadY, blockSize)
+
+		snakeList = []
+		snakeHead = []
+		snakeHead.append(leadX)
+		snakeHead.append(leadY)
+		snakeList.append(snakeHead)
+		snake(snakeList, blockSize)
 		pygame.display.update() # rendering the graphic is the most CPU intensive 
 		# Detect apple collision
 		if leadX == appleX and leadY == appleY:
