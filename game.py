@@ -17,6 +17,7 @@ windowSurface = pygame.display.set_mode((displayWidth, displayHeight)) # returns
 pygame.display.set_caption("Slither")
 clock = pygame.time.Clock()
 blockSize = 10
+appleThickness = 10
 FPS = 20
 # font object, 2nd parameter = font size
 font = pygame.font.SysFont(None, 25)
@@ -28,6 +29,8 @@ def msgToScreen(msg, color):
 def snake(snakeList, blockSize):
 	for xAndYLoc in snakeList:
 		pygame.draw.rect(windowSurface, green, [xAndYLoc[0], xAndYLoc[1], blockSize, blockSize])
+def apple(x, y, thickness):
+	pygame.draw.rect(windowSurface, red, [x, y, thickness, thickness])
 def gameLoop():
 	gameExit = False
 	gameOver = False
@@ -76,7 +79,7 @@ def gameLoop():
 		leadX += leadXChange
 		leadY += leadYChange
 		windowSurface.fill(white) #cleans the slate
-		pygame.draw.rect(windowSurface, red, [appleX, appleY, blockSize, blockSize])
+		apple(appleX, appleY, appleThickness)
 
 		snakeHead = []
 		snakeHead.append(leadX)
@@ -91,7 +94,7 @@ def gameLoop():
 		snake(snakeList, blockSize)
 		pygame.display.update() # rendering the graphic is the most CPU intensive 
 		# Detect apple collision
-		if leadX == appleX and leadY == appleY:
+		if leadX >= appleX and leadX <= appleX + appleThickness - blockSize and leadY >= appleY and leadY <= appleY + appleThickness - blockSize:
 			appleX = random.randrange(0, displayWidth - blockSize, blockSize)
 			appleY = random.randrange(0, displayHeight - blockSize, blockSize)
 			snakeLen += 1
